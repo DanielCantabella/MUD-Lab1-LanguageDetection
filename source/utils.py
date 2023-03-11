@@ -112,17 +112,22 @@ def plot_F_Scores(y_test, y_predict):
     f1_macro = f1_score(y_test, y_predict, average='macro')
     f1_weighted = f1_score(y_test, y_predict, average='weighted')
     print("F1: {} (micro), {} (macro), {} (weighted)".format(f1_micro, f1_macro, f1_weighted))
+    return str(f1_micro), str(f1_macro), str(f1_weighted)
 
-def plot_Confusion_Matrix(y_test, y_predict, color="Blues"):
+
+def plot_Confusion_Matrix(y_test, y_predict, experiment, color="Blues"):
     '''
     Task: Given a set of reference and predicted labels plot its confussion matrix
-    
+
     Input: y_test ->  Reference labels
            y_predict -> Predicted labels
            color -> [Optional] Color used for the plot
-    
+
     Ouput: Confussion Matrix plot
     '''
+    plt.rcParams['figure.dpi'] = 300
+    plt.rcParams['figure.figsize'] = (20, 20)
+
     allLabels = list(set(list(y_test) + list(y_predict)))
     allLabels.sort()
     confusionMatrix = confusion_matrix(y_test, y_predict, labels=allLabels)
@@ -130,13 +135,16 @@ def plot_Confusion_Matrix(y_test, y_predict, color="Blues"):
     df_cm = pd.DataFrame(confusionMatrix, columns=unqiueLabel, index=unqiueLabel)
     df_cm.index.name = 'Actual'
     df_cm.columns.name = 'Predicted'
-    sn.set(font_scale=0.8) # for label size
-    sn.set(rc={'figure.figsize':(15, 15)})
-    sn.heatmap(df_cm, cmap=color, annot=True, annot_kws={"size": 12}, fmt='g')# font size
+    sn.set(font_scale=0.8)  # for label size
+    sn.set(rc={'figure.figsize': (15, 15)})
+    fig = sn.heatmap(df_cm, cmap=color, annot=True, annot_kws={"size": 12}, fmt='g')  # font size
+    figure = fig.get_figure()
+    figure.savefig('/Users/danicantabella/Desktop/MUD/Labs/MUD-Lab1-LanguageDetection/images/experiments/exp'+str(experiment)+'ConfMat.png', dpi=300, bbox_inches='tight')
     plt.show()
 
 
-def plotPCA(x_train, x_test,y_test, langs):
+
+def plotPCA(x_train, x_test,y_test, langs, experiment):
     '''
     Task: Given train features train a PCA dimensionality reduction
           (2 dimensions) and plot the test set according to its labels.
@@ -150,6 +158,9 @@ def plotPCA(x_train, x_test,y_test, langs):
             Plot PCA results by language
             
     '''
+    plt.rcParams['figure.dpi'] = 300
+    plt.rcParams['figure.figsize'] = (20, 20)
+
     pca = PCA(n_components=2)
     pca.fit(toNumpyArray(x_train))
     pca_test = pca.transform(toNumpyArray(x_test))
@@ -160,7 +171,8 @@ def plotPCA(x_train, x_test,y_test, langs):
         pca_y = np.asarray([i[1] for i in pca_test])[y_test_list == lang]
         plt.scatter(pca_x,pca_y, label=lang)
     plt.legend(loc="upper left")
-    plt.show()
+    plt.savefig('/Users/danicantabella/Desktop/MUD/Labs/MUD-Lab1-LanguageDetection/images/experiments/exp'+str(experiment)+'PCA.png', dpi=300, bbox_inches='tight')
+    return str(pca.explained_variance_ratio_)
 
 
 
