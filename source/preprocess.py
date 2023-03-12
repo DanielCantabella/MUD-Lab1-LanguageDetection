@@ -68,7 +68,7 @@ def preprocess(sentence, labels, experiment):
 
             # TOKENIZE
             # Tokenize into words using word_tokenize
-            tokens = nltk.word_tokenize(sentence, preserve_line=True)
+            tokens = nltk.word_tokenize(text, preserve_line=True)
 
             # STEMMING
             tokens = [stemmer.stem(token) for token in tokens]
@@ -83,7 +83,7 @@ def preprocess(sentence, labels, experiment):
             text = re.sub(r'[[]]', ' ', text)
 
             # TOKENIZE
-            tokens = nltk.word_tokenize(sentence, preserve_line=True)
+            tokens = nltk.word_tokenize(text, preserve_line=True)
 
             preprocessed_text = " ".join(tokens)
             preprocessed_texts.append(preprocessed_text)
@@ -122,7 +122,7 @@ def preprocess(sentence, labels, experiment):
         elif experiment==7:
             #EXPERIMENT 7: Word Tokenize & Stemming
             # TOKENIZE
-            tokens = nltk.word_tokenize(sentence, preserve_line=True)
+            tokens = nltk.word_tokenize(text, preserve_line=True)
 
             # STEMMING
             tokens = [stemmer.stem(token) for token in tokens]
@@ -133,7 +133,7 @@ def preprocess(sentence, labels, experiment):
         elif experiment==8:
             #EXPERIMENT 8: Word Tokenize
             # TOKENIZE
-            tokens = nltk.word_tokenize(sentence, preserve_line=True)
+            tokens = nltk.word_tokenize(text, preserve_line=True)
 
             preprocessed_text = " ".join(tokens)
             preprocessed_texts.append(preprocessed_text)

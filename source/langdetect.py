@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 import random
 from utils import *
 from classifiers import *
-from preprocess import  preprocess
+from preprocess import preprocess
 
 
 seed = 42
@@ -28,8 +28,8 @@ if __name__ == "__main__":
     parser = get_parser()
     args = parser.parse_args()
     raw = pd.read_csv(args.input)
-    for experiment in range(1,12):
-
+    for experiment in range(1,4):
+        print("EXPERIMENT: "+ str(experiment))
         # Languages
         languages = set(raw['language'])
         print('========')
@@ -68,8 +68,8 @@ if __name__ == "__main__":
 
         #Apply Classifier
         X_train, X_test = normalizeData(X_train_raw, X_test_raw)
-        # y_predict = applyNaiveBayes(X_train, y_train, X_test)
-        y_predict = applySVC(X_train, y_train, X_test)
+        y_predict = applyNaiveBayes(X_train, y_train, X_test)
+        # y_predict = applySVC(X_train, y_train, X_test)
 
         print('========')
         print('Prediction Results:')

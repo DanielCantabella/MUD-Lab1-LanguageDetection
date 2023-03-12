@@ -141,6 +141,7 @@ def plot_Confusion_Matrix(y_test, y_predict, experiment, color="Blues"):
     figure = fig.get_figure()
     figure.savefig('/Users/danicantabella/Desktop/MUD/Labs/MUD-Lab1-LanguageDetection/images/experiments/exp'+str(experiment)+'ConfMat.png', dpi=300, bbox_inches='tight')
     plt.show()
+    plt.clf()
 
 
 
@@ -172,6 +173,7 @@ def plotPCA(x_train, x_test,y_test, langs, experiment):
         plt.scatter(pca_x,pca_y, label=lang)
     plt.legend(loc="upper left")
     plt.savefig('/Users/danicantabella/Desktop/MUD/Labs/MUD-Lab1-LanguageDetection/images/experiments/exp'+str(experiment)+'PCA.png', dpi=300, bbox_inches='tight')
+    plt.clf()
     return str(pca.explained_variance_ratio_)
 
 
