@@ -28,7 +28,7 @@ if __name__ == "__main__":
     parser = get_parser()
     args = parser.parse_args()
     raw = pd.read_csv(args.input)
-    for experiment in range(10,12):
+    for experiment in range(1,12):
         print("EXPERIMENT: "+ str(experiment))
         # Languages
         languages = set(raw['language'])
