@@ -158,8 +158,8 @@ def preprocess(sentence, labels, experiment):
             text = re.sub(r'[!@#$(),n"%^*?:;~`0-9]', ' ', text)
             text = re.sub(r'[[]]', ' ', text)
 
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
+            # preprocessed_text = " ".join(text)
+            preprocessed_texts.append(text)
 
         elif experiment==11:
             #EXPERIMENT 11: Tokenize sentence
