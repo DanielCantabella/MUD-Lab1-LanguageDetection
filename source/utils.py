@@ -159,6 +159,31 @@ def plotPCA(x_train, x_test,y_test, langs, experiment):
             Plot PCA results by language
             
     '''
+    color_dict = {
+        'Spanish': '#4e79a7',
+        'Romanian': '#f28e2b',
+        'Latin': '#e15759',
+        'Turkish': '#76b7b2',
+        'Japanese': '#59a14f',
+        'Dutch': '#edc948',
+        'Estonian': '#b07aa1',
+        'Chinese': '#ff9da7',
+        'Russian': '#9c755f',
+        'Urdu': '#bab0ac',
+        'Swedish': '#bab0ac',
+        'Thai': '#b4c292',
+        'Arabic': '#dede00',
+        'Pushto': '#7f7f7f',
+        'Indonesian': '#c6b9d6',
+        'Portugese': '#d77fb4',
+        'Hindi': '#fbc15e',
+        'Persian': '#8cd17d',
+        'English': '#000000',
+        'Korean': '#ffbe7d',
+        'Tamil': '#64b5cd',
+        'French': '#ffb6c1'
+    }
+
     plt.rcParams['figure.dpi'] = 300
     plt.rcParams['figure.figsize'] = (20, 20)
 
@@ -170,8 +195,8 @@ def plotPCA(x_train, x_test,y_test, langs, experiment):
     for lang in langs:
         pca_x = np.asarray([i[0] for i in pca_test])[y_test_list == lang]
         pca_y = np.asarray([i[1] for i in pca_test])[y_test_list == lang]
-        plt.scatter(pca_x,pca_y, label=lang)
-    plt.legend(loc="upper left")
+        plt.scatter(pca_x,pca_y, label=lang, c=color_dict[lang])
+    plt.legend(loc="upper right")
     plt.savefig('/Users/danicantabella/Desktop/MUD/Labs/MUD-Lab1-LanguageDetection/images/experiments/exp'+str(experiment)+'PCA.png', dpi=300, bbox_inches='tight')
     plt.clf()
     return str(pca.explained_variance_ratio_)
