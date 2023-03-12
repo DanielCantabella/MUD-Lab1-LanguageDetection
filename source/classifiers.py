@@ -2,7 +2,7 @@ from sklearn.naive_bayes import MultinomialNB
 from utils import toNumpyArray
 from sklearn.svm import SVC
 
-# You may add more classifier methods replicating this function
+
 def applyNaiveBayes(X_train, y_train, X_test):
     '''
     Task: Given some features train a Naive Bayes classifier

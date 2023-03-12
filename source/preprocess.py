@@ -6,9 +6,49 @@ import re
 # nltk.download('punkt')
 from nltk.tokenize import PunktSentenceTokenizer
 
+def remove_symbols_and_numbers(text):
+    text = re.sub(r'[!@#$(),n"%^*?:;~`0-9]', ' ', text)
+    text = re.sub(r'[[]]', ' ', text)
+    return text
+
+def tokenization(text , kind):
+    output = text
+    match kind:
+        case "s":
+            # Tokenize into sentences
+            output = nltk.sent_tokenize(text)
+        case 'w':
+            # Tokenize into words using word_tokenize
+            output = nltk.word_tokenize(text, preserve_line=True)
+        # case "both":
+        #     # Tokenize into sentences
+        #     tokenizer = PunktSentenceTokenizer()
+        #     sentences = tokenizer.tokenize(text)
+        #     # Tokenize each sentence into words using word_tokenize
+        #     sentences = " ".join(sentences)
+        #     tokens = []
+        #     for sentence in sentences:
+        #         # tokens = nltk.word_tokenize(sentence, preserve_line=True)
+        #         token = nltk.word_tokenize(sentence, preserve_line=True)
+        #         tokens.append(token)
+        #     output = tokens
+    return output
+
+def stemming( tokens):
+    stemmer = PorterStemmer()
+    tokens = [stemmer.stem(token) for token in tokens]
+    return tokens
+
+def split_sentences(sentences, labels):
+    new_sentence = [nltk.sent_tokenize(text) for text in sentences]
+    post_labels = []
+    for i, label in enumerate(labels):
+        post_labels.extend([label] * len(new_sentence[i]))
+    post_sentences = [sentence for text_sentences in sentences for sentence in text_sentences]
+    return post_sentences, post_labels
 
 
-def preprocess(sentence, labels, experiment):
+def preprocess(sentence, labels, exp_param):
     '''
     Task: Given a sentence apply all the required preprocessing steps
     to compute train our classifier, such as sentence splitting,
@@ -18,164 +58,25 @@ def preprocess(sentence, labels, experiment):
     Output: Preprocessed sentence either as a list or a string
     '''
 
-    stemmer = PorterStemmer()
+    if exp_param["split_sentences"]:
+        sentence, labels = split_sentences(sentence, labels)
+
     preprocessed_texts = []
     for text in sentence:
-        if experiment == 1:
-            #EXPERIMENT 1: Symbols and numbers removal & Tokenize sentence & Word Tokenize & Stemming
-            # REMOVE SYMBOLS AND NUMBERS
-            text = re.sub(r'[!@#$(),n"%^*?:;~`0-9]', ' ', text)
-            text = re.sub(r'[[]]', ' ', text)
 
-            # TOKENIZE
-            #Tokenize into sentences
-            tokenizer = PunktSentenceTokenizer()
-            sentences = tokenizer.tokenize(text)
-            # Tokenize each sentence into words using word_tokenize
-            tokens = []
-            for sentence in sentences:
-                tokens = nltk.word_tokenize(sentence, preserve_line=True)
+        if exp_param["remove_symbols_and_numbers"]:
+            text = remove_symbols_and_numbers(text)
 
-            #STEMMING
-            tokens = [stemmer.stem(token) for token in tokens]
+        if exp_param["tokenization"] is not None:
+            text = tokenization(text, exp_param["tokenization"])
+            if exp_param["stemming"]:
+                text = stemming(text)
+            text = " ".join(text)
 
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
+        preprocessed_text = text
+        preprocessed_texts.append(preprocessed_text)
 
-        elif experiment == 2:
-            #EXPERIMENT 2: Symbols and numbers removal & Tokenize sentence & Word Tokenize
-            # REMOVE SYMBOLS AND NUMBERS
-            text = re.sub(r'[!@#$(),n"%^*?:;~`0-9]', ' ', text)
-            text = re.sub(r'[[]]', ' ', text)
-
-            # TOKENIZE
-            # Tokenize into sentences
-            tokenizer = PunktSentenceTokenizer()
-            sentences = tokenizer.tokenize(text)
-            # Tokenize each sentence into words using word_tokenize
-            tokens = []
-            for sentence in sentences:
-                tokens = nltk.word_tokenize(sentence, preserve_line=True)
-
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
-
-        elif experiment == 3:
-            #EXPERIMENT 3: Symbols and numbers removal & Word Tokenize & Stemming
-            # REMOVE SYMBOLS AND NUMBERS
-            text = re.sub(r'[!@#$(),n"%^*?:;~`0-9]', ' ', text)
-            text = re.sub(r'[[]]', ' ', text)
-
-            # TOKENIZE
-            # Tokenize into words using word_tokenize
-            tokens = nltk.word_tokenize(text, preserve_line=True)
-
-            # STEMMING
-            tokens = [stemmer.stem(token) for token in tokens]
-
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
-
-        elif experiment==4:
-            #EXPERIMENT 4: Symbols and numbers removal & Word Tokenize
-            # REMOVE SYMBOLS AND NUMBERS
-            text = re.sub(r'[!@#$(),n"%^*?:;~`0-9]', ' ', text)
-            text = re.sub(r'[[]]', ' ', text)
-
-            # TOKENIZE
-            tokens = nltk.word_tokenize(text, preserve_line=True)
-
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
-
-        elif experiment==5:
-            #EXPERIMENT 5: Tokenize sentence & Word Tokenize & Stemming
-            # TOKENIZE
-            # Tokenize into sentences
-            tokenizer = PunktSentenceTokenizer()
-            sentences = tokenizer.tokenize(text)
-            # Tokenize each sentence into words using word_tokenize
-            tokens = []
-            for sentence in sentences:
-                tokens = nltk.word_tokenize(sentence, preserve_line=True)
-
-            # STEMMING
-            tokens = [stemmer.stem(token) for token in tokens]
-
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
-
-        elif experiment==6:
-            #EXPERIMENT 6: Tokenize sentence & Word Tokenize
-            # TOKENIZE
-            # Tokenize into sentences
-            tokenizer = PunktSentenceTokenizer()
-            sentences = tokenizer.tokenize(text)
-            # Tokenize each sentence into words using word_tokenize
-            tokens = []
-            for sentence in sentences:
-                tokens = nltk.word_tokenize(sentence, preserve_line=True)
-
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
-
-        elif experiment==7:
-            #EXPERIMENT 7: Word Tokenize & Stemming
-            # TOKENIZE
-            tokens = nltk.word_tokenize(text, preserve_line=True)
-
-            # STEMMING
-            tokens = [stemmer.stem(token) for token in tokens]
-
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
-
-        elif experiment==8:
-            #EXPERIMENT 8: Word Tokenize
-            # TOKENIZE
-            tokens = nltk.word_tokenize(text, preserve_line=True)
-
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
-
-        elif experiment==9:
-            #EXPERIMENT 9: Symbols and numbers removal & Tokenize sentence
-            # REMOVE SYMBOLS AND NUMBERS
-            text = re.sub(r'[!@#$(),n"%^*?:;~`0-9]', ' ', text)
-            text = re.sub(r'[[]]', ' ', text)
-
-            # TOKENIZE
-            # Tokenize into sentences
-            tokenizer = PunktSentenceTokenizer()
-            tokens = tokenizer.tokenize(text)
-
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
-
-        elif experiment==10:
-            #EXPERIMENT 10: Symbols and numbers removal
-            # REMOVE SYMBOLS AND NUMBERS
-            text = re.sub(r'[!@#$(),n"%^*?:;~`0-9]', ' ', text)
-            text = re.sub(r'[[]]', ' ', text)
-
-            # preprocessed_text = " ".join(text)
-            preprocessed_texts.append(text)
-
-        elif experiment==11:
-            #EXPERIMENT 11: Tokenize sentence
-            # TOKENIZE
-            # Tokenize into sentences
-            tokenizer = PunktSentenceTokenizer()
-            tokens = tokenizer.tokenize(text)
-
-            preprocessed_text = " ".join(tokens)
-            preprocessed_texts.append(preprocessed_text)
-        else:
-            print("EXPERIMENT NUMBER IS WRONG")
-
-    # Convert preprocessed texts list to pandas Series
-    sentence = pd.Series(preprocessed_texts)
-
+    sentence = pd.Series(preprocessed_text)
 
     return sentence, labels
 
