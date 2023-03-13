@@ -200,6 +200,7 @@ def plotPCA(x_train, x_test,y_test, langs, experiment):
         plt.scatter(pca_x,pca_y, label=lang, c=color_dict[lang])
     plt.legend(loc="upper right")
     plt.savefig(OUTPUT_ROUTE+str(experiment)+'PCA.png', dpi=300, bbox_inches='tight')
+    plt.show()
     plt.clf()
     return str(pca.explained_variance_ratio_)
 

@@ -29,22 +29,22 @@ if __name__ == "__main__":
     args = parser.parse_args()
     raw = pd.read_csv(args.input)
 
-    experiments = [
-        {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": True, "split_sentences": True},
-        {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": False, "split_sentences": True},
-        {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": True, "split_sentences": False},
-        {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": False, "split_sentences": False},
-        {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": True, "split_sentences": True},
-        {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": False, "split_sentences": True},
-        {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": True, "split_sentences": False},
-        {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": False, "split_sentences": False},
-        {"remove_symbols_and_numbers": True, "tokenization": False, "stemming": False, "split_sentences": True},
-        {"remove_symbols_and_numbers": True, "tokenization": False, "stemming": False, "split_sentences": False},
-        {"remove_symbols_and_numbers": False, "tokenization": False, "stemming": False, "split_sentences": True}
+    # experiments = [
+    #     {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": True, "split_sentences": True},
+    #     {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": False, "split_sentences": True},
+    #     {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": True, "split_sentences": False},
+    #     {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": False, "split_sentences": False},
+    #     {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": True, "split_sentences": True},
+    #     {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": False, "split_sentences": True},
+    #     {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": True, "split_sentences": False},
+    #     {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": False, "split_sentences": False},
+    #     {"remove_symbols_and_numbers": True, "tokenization": False, "stemming": False, "split_sentences": True},
+    #     {"remove_symbols_and_numbers": True, "tokenization": False, "stemming": False, "split_sentences": False},
+    #     {"remove_symbols_and_numbers": False, "tokenization": False, "stemming": False, "split_sentences": True}
+    #
+    # ]
 
-    ]
-
-    # experiments = [ {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": True, "split_sentences": True}]
+    experiments = [{"remove_symbols_and_numbers": True, "tokenization": True, "stemming": True, "split_sentences": True}]
 
     for i, exp_param in enumerate(experiments):
         experiment = i + 1

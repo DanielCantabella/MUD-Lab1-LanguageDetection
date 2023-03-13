@@ -21,13 +21,17 @@ def stemming( tokens):
     return tokens
 
 def split_sentences(sentences, labels):
-    new_sentence = [nltk.sent_tokenize(text) for text in sentences]
-    post_labels = []
-    for i, label in enumerate(labels):
-        post_labels.extend([label] * len(new_sentence[i]))
-    post_sentences = [sentence for text_sentences in sentences for sentence in text_sentences]
-    return post_sentences, post_labels
 
+    tokenized_list = [nltk.sent_tokenize(text) for text in sentences]
+    post_sentences = []
+    post_labels = []
+    for sent_list, label in zip(tokenized_list, labels):
+        for sentence in sent_list:
+            post_sentences.append(sentence)
+            post_labels.append(label)
+    post_labels = pd.Series(post_labels)
+
+    return post_sentences, post_labels
 
 def preprocess(sentence, labels, exp_param):
     '''
