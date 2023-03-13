@@ -53,11 +53,9 @@ def preprocess(sentence, labels, exp_param):
             if exp_param["stemming"]:
                 text = stemming(text)
             text = " ".join(text)
+        preprocessed_texts.append(text)
 
-        preprocessed_text = text
-        preprocessed_texts.append(preprocessed_text)
-
-    sentence = pd.Series(preprocessed_text)
+    sentence = pd.Series(preprocessed_texts)
 
     return sentence, labels
 

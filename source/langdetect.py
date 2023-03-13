@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     ]
 
-    # experiments = [ {"remove_symbols_and_numbers": True, "tokenization": "w", "stemming": True, "split_sentences": False}]
+    # experiments = [ {"remove_symbols_and_numbers": True, "tokenization": True, "stemming": True, "split_sentences": True}]
 
     for i, exp_param in enumerate(experiments):
         experiment = i + 1
