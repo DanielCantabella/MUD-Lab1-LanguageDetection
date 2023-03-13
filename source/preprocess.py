@@ -11,27 +11,8 @@ def remove_symbols_and_numbers(text):
     text = re.sub(r'[[]]', ' ', text)
     return text
 
-def tokenization(text , kind):
-    output = text
-    match kind:
-        case "s":
-            # Tokenize into sentences
-            output = nltk.sent_tokenize(text)
-        case 'w':
-            # Tokenize into words using word_tokenize
-            output = nltk.word_tokenize(text, preserve_line=True)
-        # case "both":
-        #     # Tokenize into sentences
-        #     tokenizer = PunktSentenceTokenizer()
-        #     sentences = tokenizer.tokenize(text)
-        #     # Tokenize each sentence into words using word_tokenize
-        #     sentences = " ".join(sentences)
-        #     tokens = []
-        #     for sentence in sentences:
-        #         # tokens = nltk.word_tokenize(sentence, preserve_line=True)
-        #         token = nltk.word_tokenize(sentence, preserve_line=True)
-        #         tokens.append(token)
-        #     output = tokens
+def tokenization(text):
+    output = nltk.word_tokenize(text, preserve_line=True)
     return output
 
 def stemming( tokens):
@@ -63,12 +44,12 @@ def preprocess(sentence, labels, exp_param):
 
     preprocessed_texts = []
     for text in sentence:
-
+        text = text.lower()
         if exp_param["remove_symbols_and_numbers"]:
             text = remove_symbols_and_numbers(text)
 
-        if exp_param["tokenization"] is not None:
-            text = tokenization(text, exp_param["tokenization"])
+        if exp_param["tokenization"]:
+            text = tokenization(text)
             if exp_param["stemming"]:
                 text = stemming(text)
             text = " ".join(text)
