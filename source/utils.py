@@ -13,6 +13,7 @@ OUTPUT_ROUTE = '../output/'
 # OUTPUT_ROUTE = '/Users/danicantabella/Desktop/MUD/Labs/MUD-Lab1-LanguageDetection/images/experiments/exp'
 
 
+
 def compute_features(X_train, 
                      X_test, 
                      analyzer='char', 
@@ -127,8 +128,6 @@ def plot_Confusion_Matrix(y_test, y_predict, experiment, color="Blues"):
 
     Ouput: Confussion Matrix plot
     '''
-    plt.rcParams['figure.dpi'] = 300
-    plt.rcParams['figure.figsize'] = (20, 20)
 
     allLabels = list(set(list(y_test) + list(y_predict)))
     allLabels.sort()
@@ -141,11 +140,9 @@ def plot_Confusion_Matrix(y_test, y_predict, experiment, color="Blues"):
     sn.set(rc={'figure.figsize': (15, 15)})
     fig = sn.heatmap(df_cm, cmap=color, annot=True, annot_kws={"size": 12}, fmt='g')  # font size
     figure = fig.get_figure()
-    figure.savefig(OUTPUT_ROUTE+str(experiment)+'ConfMat.png', dpi=300, bbox_inches='tight')
+    figure.savefig(OUTPUT_ROUTE+str(experiment)+'ConfMat.png')
     plt.show()
     plt.clf()
-
-
 
 def plotPCA(x_train, x_test,y_test, langs, experiment):
     '''
@@ -186,9 +183,6 @@ def plotPCA(x_train, x_test,y_test, langs, experiment):
         'French': '#ffb6c1'
     }
 
-    plt.rcParams['figure.dpi'] = 300
-    plt.rcParams['figure.figsize'] = (20, 20)
-
     pca = PCA(n_components=2)
     pca.fit(toNumpyArray(x_train))
     pca_test = pca.transform(toNumpyArray(x_test))
@@ -199,7 +193,7 @@ def plotPCA(x_train, x_test,y_test, langs, experiment):
         pca_y = np.asarray([i[1] for i in pca_test])[y_test_list == lang]
         plt.scatter(pca_x,pca_y, label=lang, c=color_dict[lang])
     plt.legend(loc="upper right")
-    plt.savefig(OUTPUT_ROUTE+str(experiment)+'PCA.png', dpi=300, bbox_inches='tight')
+    plt.savefig(OUTPUT_ROUTE+str(experiment)+'PCA.png')
     plt.show()
     plt.clf()
     return str(pca.explained_variance_ratio_)

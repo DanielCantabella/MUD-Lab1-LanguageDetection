@@ -4,19 +4,20 @@ import os
 
 
 # Define the different parameter combinations to use
-params = [
-    ("-v 2000 -a char", "params1"),
-    ("-v 4000 -a char", "params2"),
-    ("-v 6000 -a char", "params3"),
-    ("-v 8000 -a char", "params4"),
-    ("-v 10000 -a char", "params5"),
-    ("-v 2000 -a word", "params6"),
-    ("-v 4000 -a word", "params7"),
-    ("-v 6000 -a word", "params8"),
-    ("-v 8000 -a word", "params9"),
-    ("-v 10000 -a word", "params10")
-]
+# params = [
+#     ("-v 2000 -a char", "params1"),
+#     ("-v 4000 -a char", "params2"),
+#     ("-v 6000 -a char", "params3"),
+#     ("-v 8000 -a char", "params4"),
+#     ("-v 10000 -a char", "params5"),
+#     ("-v 2000 -a word", "params6"),
+#     ("-v 4000 -a word", "params7"),
+#     ("-v 6000 -a word", "params8"),
+#     ("-v 8000 -a word", "params9"),
+#     ("-v 10000 -a word", "params10")
+# ]
 
+params = [("-v 4000 -a word", "test")]
 
 # Define the input file path
 input_file = "../data/dataset.csv"
