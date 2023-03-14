@@ -48,10 +48,10 @@ if __name__ == "__main__":
 
 
     experiments = [
-        {"remove_symbols_and_numbers": False, "tokenization": False, "stemming": False, "split_sentences": False, "model" : "NaiveBayes"},
-        {"remove_symbols_and_numbers": False, "tokenization": False, "stemming": False, "split_sentences": False, "model": "SVC"},
-        {"remove_symbols_and_numbers": False, "tokenization": False, "stemming": False, "split_sentences": False, "model": "DecisionTree"},
-        {"remove_symbols_and_numbers": False, "tokenization": False, "stemming": False, "split_sentences": False, "model": "RandomForest"},
+        {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": False, "split_sentences": False, "model" : "NaiveBayes"},
+        {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": False, "split_sentences": False, "model": "SVC"},
+        {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": False, "split_sentences": False, "model": "DecisionTree"},
+        {"remove_symbols_and_numbers": False, "tokenization": True, "stemming": False, "split_sentences": False, "model": "RandomForest"},
 
                    ]
 

@@ -141,7 +141,7 @@ def plot_Confusion_Matrix(y_test, y_predict, experiment, color="Blues"):
     fig = sn.heatmap(df_cm, cmap=color, annot=True, annot_kws={"size": 12}, fmt='g')  # font size
     figure = fig.get_figure()
     figure.savefig(OUTPUT_ROUTE+str(experiment)+'ConfMat.png')
-    plt.show()
+    # plt.show()
     plt.clf()
 
 def plotPCA(x_train, x_test,y_test, langs, experiment):
@@ -194,7 +194,7 @@ def plotPCA(x_train, x_test,y_test, langs, experiment):
         plt.scatter(pca_x,pca_y, label=lang, c=color_dict[lang])
     plt.legend(loc="upper right")
     plt.savefig(OUTPUT_ROUTE+str(experiment)+'PCA.png')
-    plt.show()
+    # plt.show()
     plt.clf()
     return str(pca.explained_variance_ratio_)
 
